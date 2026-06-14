@@ -10,7 +10,10 @@ public class CubeMovement : MonoBehaviour
         float moveZ = 0f;
 
         if (Input.GetKey(KeyCode.W))
+        {
             moveZ = 1f;
+            Debug.Log("前进");
+        }
         if (Input.GetKey(KeyCode.S))
             moveZ = -1f;
         if (Input.GetKey(KeyCode.A))
