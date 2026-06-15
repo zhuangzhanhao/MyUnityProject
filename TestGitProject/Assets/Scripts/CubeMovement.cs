@@ -15,7 +15,10 @@ public class CubeMovement : MonoBehaviour
             Debug.Log("前进");
         }
         if (Input.GetKey(KeyCode.S))
+        {
+            Debug.Log("后退");
             moveZ = -1f;
+        }
         if (Input.GetKey(KeyCode.A))
             moveX = -1f;
         if (Input.GetKey(KeyCode.D))
