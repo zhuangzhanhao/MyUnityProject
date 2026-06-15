@@ -19,10 +19,14 @@ public class CubeMovement : MonoBehaviour
             Debug.Log("后退");
             moveZ = -1f;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A)){
             moveX = -1f;
-        if (Input.GetKey(KeyCode.D))
+            Debug.Log("左移");
+        }
+        if (Input.GetKey(KeyCode.D)){
             moveX = 1f;
+            Debug.Log("右移");
+        }
 
         Vector3 movement = new Vector3(moveX, 0, moveZ).normalized * moveSpeed * Time.deltaTime;
         transform.Translate(movement);
