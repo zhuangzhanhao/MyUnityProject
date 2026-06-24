@@ -35,23 +35,23 @@ public enum E_Event
 
 public class EventCenter : SingleInstanceBase<EventCenter>
 {
-    private Dictionary<E_Event, DataBase> eventDic = new Dictionary<E_Event, DataBase>();
+    private Dictionary<E_Event, DataBase> _eventDic = new Dictionary<E_Event, DataBase>();
 
     private EventCenter(){}
 
 
     public void EventTrigger<T>(E_Event eventName, T data)
     {
-        if (eventDic.ContainsKey(eventName))
+        if (_eventDic.ContainsKey(eventName))
         {
-            (eventDic[eventName] as Data<T>).actions?.Invoke(data);
+            (_eventDic[eventName] as Data<T>).actions?.Invoke(data);
         }
     }
     public void EventTrigger(E_Event eventName)
     {
-        if (eventDic.ContainsKey(eventName))
+        if (_eventDic.ContainsKey(eventName))
         {
-            (eventDic[eventName] as Data).actions?.Invoke();
+            (_eventDic[eventName] as Data).actions?.Invoke();
         }
     }
 
@@ -62,13 +62,13 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// <param name="fun">触发事件</param>
     public void AddEventListener<T>(E_Event eventName, UnityAction<T> fun)
     {
-        if (!eventDic.ContainsKey(eventName))
+        if (!_eventDic.ContainsKey(eventName))
         {
-            eventDic.Add(eventName, new Data<T>(fun));
+            _eventDic.Add(eventName, new Data<T>(fun));
         }
         else
         {
-            (eventDic[eventName] as Data<T>).actions += fun;
+            (_eventDic[eventName] as Data<T>).actions += fun;
         }
     }
     /// <summary>
@@ -78,13 +78,13 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// <param name="fun"></param>
     public void AddEventListener(E_Event eventName, UnityAction fun)
     {
-        if (!eventDic.ContainsKey(eventName))
+        if (!_eventDic.ContainsKey(eventName))
         {
-            eventDic.Add(eventName, new Data(fun));
+            _eventDic.Add(eventName, new Data(fun));
         }
         else
         {
-            (eventDic[eventName] as Data).actions += fun;
+            (_eventDic[eventName] as Data).actions += fun;
         }
     }
 
@@ -95,9 +95,9 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// <param name="fun">移除事件</param>
     public void RemoveEventListener<T>(E_Event eventName, UnityAction<T> fun)
     {
-        if (eventDic.ContainsKey(eventName))
+        if (_eventDic.ContainsKey(eventName))
         {
-            (eventDic[eventName] as Data<T>).actions -= fun;
+            (_eventDic[eventName] as Data<T>).actions -= fun;
         }
     }
     /// <summary>
@@ -107,9 +107,9 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// <param name="fun">移除事件</param>
     public void RemoveEventListener(E_Event eventName, UnityAction fun)
     {
-        if (eventDic.ContainsKey(eventName))
+        if (_eventDic.ContainsKey(eventName))
         {
-            (eventDic[eventName] as Data).actions -= fun;
+            (_eventDic[eventName] as Data).actions -= fun;
         }
     }
 
@@ -118,7 +118,7 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// </summary>
     public void ClearAllSubjects()
     {
-        eventDic.Clear();
+        _eventDic.Clear();
     }
 
     /// <summary>
@@ -127,9 +127,9 @@ public class EventCenter : SingleInstanceBase<EventCenter>
     /// <param name="eventName">主题对象名</param>
     public void ClearAllEvents(E_Event eventName)
     {
-        if (eventDic.ContainsKey(eventName))
+        if (_eventDic.ContainsKey(eventName))
         {
-            eventDic.Remove(eventName);
+            _eventDic.Remove(eventName);
         }
     }
 }
